@@ -9,6 +9,14 @@ import connectLiveReload from "connect-livereload";
 import livereload from "livereload";
 
 import rootRoutes from "./routes/root";
+import loginRoutes from "./routes/login";
+import signupRoutes from "./routes/signup";
+import gameslistRoutes from "./routes/gameslist";
+import creategameRoutes from "./routes/creategame";
+import gamelobbyRoutes from "./routes/gamelobby";
+import gameRoutes from "./routes/game";
+import gameresultRoutes from "./routes/gameresult";
+
 
 dotenv.config();
 
@@ -26,6 +34,13 @@ app.set("views", path.join(process.cwd(), "src", "server",
 app.set("view engine", "ejs");
 
 app.use("/", rootRoutes);
+app.use("/login", loginRoutes);
+app.use("/signup", signupRoutes);
+app.use("/gameslist", gameslistRoutes);
+app.use("/creategame", creategameRoutes);
+app.use("/gamelobby", gamelobbyRoutes);
+app.use("/game", gameRoutes);
+app.use("/gameresult", gameresultRoutes);
 
 const staticPath = path.join(process.cwd(), "src", "public");
 app.use(express.static(staticPath));
