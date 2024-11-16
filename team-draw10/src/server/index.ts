@@ -5,17 +5,9 @@ import httpErrors from "http-errors";
 import morgan from "morgan";
 import * as path from "path";
 
-import connectLiveReload from "connect-livereload";
-import livereload from "livereload";
-
-import rootRoutes from "./routes/root";
-import loginRoutes from "./routes/login";
-import signupRoutes from "./routes/signup";
-import gameslistRoutes from "./routes/gameslist";
-import creategameRoutes from "./routes/creategame";
-import gamelobbyRoutes from "./routes/gamelobby";
-import gameRoutes from "./routes/game";
-import gameresultRoutes from "./routes/gameresult";
+import * as configuration from "./config/manifest";
+import * as routes from "./routes/routemanifest";
+import * as middleware from "./middleware/authentication";
 
 
 dotenv.config();
@@ -33,29 +25,19 @@ app.set("views", path.join(process.cwd(), "src", "server",
 "views"));
 app.set("view engine", "ejs");
 
-app.use("/", rootRoutes);
-app.use("/login", loginRoutes);
-app.use("/signup", signupRoutes);
-app.use("/gameslist", gameslistRoutes);
-app.use("/creategame", creategameRoutes);
-app.use("/gamelobby", gamelobbyRoutes);
-app.use("/game", gameRoutes);
-app.use("/gameresult", gameresultRoutes);
+app.use("/", routes.root);
+app.use("/auth", routes.auth);
+app.use("/gameslist", routes.gameslist);
+app.use("/creategame", routes.creategame);
+app.use("/gamelobby", routes.gamelobby);
+app.use("/game", routes.game);
+app.use("/gameresult", routes.gameresult);
 
 const staticPath = path.join(process.cwd(), "src", "public");
 app.use(express.static(staticPath));
 
-if (process.env.NODE_ENV === "development") {
-	const reloadServer = livereload.createServer();
-	
-	reloadServer.watch(staticPath);
-	reloadServer.server.once("connection", () => {
-		setTimeout(() => {
-			reloadServer.refresh("/");
-		}, 100);
-	});
-	app.use(connectLiveReload());
-}
+configuration.configureLiveReload(app, staticPath);
+configuration.configureSession(app);
 
 app.use((_request, _response, next) => {
 	next(httpErrors(404));
