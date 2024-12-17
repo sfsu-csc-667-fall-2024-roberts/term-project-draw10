@@ -1,4 +1,5 @@
 import express from "express";
+import { Users } from "../db";
 const router = express.Router();
 router.get("/register", (_request, response) => {
     response.render("auth/register", { title: "Auth: Register" });
@@ -13,7 +14,7 @@ router.post("/register", async (request, response) => {
         const user = await Users.register(username, email, password);
 // @ts-expect-error TODO: Define the session type for the user object
         request.session.user = user;
-        response.redirect("/lobby");
+        response.redirect("/gameslist");
     } catch (error) {
         console.error(error);
         request.flash("error", "Failed to register user");
@@ -26,7 +27,7 @@ router.post("/login", async (request, response) => {
         const user = await Users.login(email, password);
 // @ts-expect-error TODO: Define the session type for the user object
         request.session.user = user;
-        response.redirect("/lobby");
+        response.redirect("/gameslist");
     } catch (error) {
         console.error(error);
         request.flash("error", error as string);

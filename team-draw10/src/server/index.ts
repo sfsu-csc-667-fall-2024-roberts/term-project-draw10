@@ -25,6 +25,12 @@ app.set("views", path.join(process.cwd(), "src", "server",
 "views"));
 app.set("view engine", "ejs");
 
+const staticPath = path.join(process.cwd(), "src", "public");
+app.use(express.static(staticPath));
+
+configuration.configureLiveReload(app, staticPath);
+configuration.configureSession(app);
+
 app.use("/", routes.root);
 app.use("/auth", routes.auth);
 app.use("/gameslist", routes.gameslist);
@@ -32,12 +38,6 @@ app.use("/creategame", routes.creategame);
 app.use("/gamelobby", routes.gamelobby);
 app.use("/game", routes.game);
 app.use("/gameresult", routes.gameresult);
-
-const staticPath = path.join(process.cwd(), "src", "public");
-app.use(express.static(staticPath));
-
-configuration.configureLiveReload(app, staticPath);
-configuration.configureSession(app);
 
 app.use((_request, _response, next) => {
 	next(httpErrors(404));

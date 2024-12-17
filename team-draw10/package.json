@@ -8,6 +8,9 @@
     "server:dev": "nodemon --exec ts-node src/server/index.ts --ext js,css,ejs --ignore src/public/js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky",
+    "db:create": "npx node-pg-migrate create -j ts",
+    "db:migrate": "npx node-pg-migrate -j ts up",
+    "db:rollback": "npx node-pg-migrate -j ts down",
     "build": "webpack build",
     "build:dev": "webpack build --mode development --watch"
   },
@@ -41,16 +44,20 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@types/pg-promise": "^0.0.28",
     "bcrypt": "^5.1.1",
     "connect-pg-simple": "^10.0.0",
     "cookie-parser": "^1.4.7",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^5.0.1",
     "express-flash": "^0.0.2",
     "express-session": "^1.18.1",
     "http-errors": "^2.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-pg-migrate": "^7.8.0",
+    "pg": "^8.13.1",
+    "pg-promise": "^11.10.2"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
