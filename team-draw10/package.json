@@ -8,9 +8,9 @@
     "server:dev": "nodemon --exec ts-node src/server/index.ts --ext js,css,ejs --ignore src/public/js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky",
-    "db:create": "npx node-pg-migrate create -j ts",
-    "db:migrate": "npx node-pg-migrate -j ts up",
-    "db:rollback": "npx node-pg-migrate -j ts down",
+    "db:create": "node-pg-migrate create -j ts --",
+    "db:migrate": "ts-node node_modules/node-pg-migrate/bin/node-pg-migrate.js up -j ts",
+    "db:rollback": "ts-node node_modules/node-pg-migrate/bin/node-pg-migrate.js down -j ts",
     "build": "webpack build",
     "build:dev": "webpack build --mode development --watch"
   },
@@ -29,6 +29,7 @@
     "@types/livereload": "^0.9.5",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.7.9",
+    "@types/pg-promise": "^0.0.28",
     "@types/webpack": "^5.28.5",
     "concurrently": "^9.1.0",
     "connect-livereload": "^0.6.1",
@@ -37,6 +38,7 @@
     "livereload": "^0.9.3",
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.17",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
@@ -46,6 +48,7 @@
   "dependencies": {
     "@types/pg-promise": "^0.0.28",
     "bcrypt": "^5.1.1",
+    "clsx": "^1.2.1",
     "connect-pg-simple": "^10.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
@@ -57,7 +60,12 @@
     "morgan": "^1.10.0",
     "node-pg-migrate": "^7.8.0",
     "pg": "^8.13.1",
-    "pg-promise": "^11.10.2"
+    "pg-promise": "^11.10.2",
+    "socket-io": "^1.0.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss": "^3.4.15"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
