@@ -1,34 +1,34 @@
 <html>
     <head>
         <title>Game Lobby</title>
+        <link rel="stylesheet" href="stylesheets/chat.css">
+        <link rel="stylesheet" href="stylesheets/header.css">
+        <link rel="stylesheet" href="stylesheets/lobby.css">
     </head>
     <body>
         <!-- Include Header -->
         <%- include('components/header') %>
         
-
-        <!-- Game Lobby Content -->
-        <div class="lobby-container">
-        <h1><%= game.name %></h1>
-        <p>Players: <%= game.players.length %> / <%= game.maxPlayers %></p>
-
-        <h2>Current Players</h2>
-        <ul>
-            <% game.players.forEach(function(player) { %>
-            <li><%= player %></li>
-            <% }) %>
-        </ul>
-
-        <% if (game.players.length < game.maxPlayers) { %>
-            <button onclick="joinGame()">Join Game</button>
-        <% } else { %>
-            <p>The game is full. Please wait for it to start.</p>
-        <% } %>
-
-        <!-- Start Game Button (Visible when the game is full) -->
-        <% if (game.players.length === game.maxPlayers) { %>
-            <button onclick="startGame()">Start Game</button>
-        <% } %>
+        <div class="games-container">
+            <h1>Active UNO Games</h1>
+            
+            <div class="games-list">
+              <% if (games.length > 0) { %>
+                <ul>
+                  <% games.forEach(function(game) { %>
+                    <li>
+                      <strong><%= game.name %></strong><br>
+                      Players: <%= game.players.length %> / <%= game.maxPlayers %><br>
+                      <button onclick="joinGame('<%= game.id %>')">Join Game</button>
+                    </li>
+                  <% }) %>
+                </ul>
+              <% } else { %>
+                <p>No active games at the moment. Be the first to create a game!</p>
+              <% } %>
+            </div>
+            
+            <button onclick="createGame()">Create New Game</button>
         </div>
 
         <!-- Chat Box -->

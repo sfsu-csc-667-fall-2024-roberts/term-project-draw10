@@ -1,35 +1,39 @@
 <html>
     <head>
         <title>Games List</title>
+        <link rel="stylesheet" href="stylesheets/chat.css">
+        <link rel="stylesheet" href="stylesheets/header.css">
+        <link rel="stylesheet" href="stylesheets/list.css">
     </head>
     <body>
         <!-- The header -->
         <%- include('components/header') %>
     
-        <!-- Listing of UNO games -->
-        <div class="games-list">
-        <h2>Current Games</h2>
+         <!-- Main content container -->
+        <div class="main-container">
+            <!-- Left column for listing UNO games -->
+            <div class="games-list">
+            <h2>Current Games</h2>
             <ul id="games">
-             <!-- Populate games here -->
+                <!-- Dynamically populate games here -->
                 <% games.forEach(function(game) { %>
-                <li>
+                  <li>
                     <span>Game ID: <%= game.id %></span>
                     <span>Players: <%= game.players %></span>
                     <button onclick="joinGame('<%= game.id %>')">Join</button>
-                </li>
+                  </li>
                 <% }) %>
             </ul>
-        </div>
-    
-          <!-- Right column for the "Create a Game" button -->
-          <div class="create-game-container">
+            </div>
+  
+            <!-- Right column for the "Create a Game" button -->
+            <div class="create-game-container">
             <button id="create-game-btn" onclick="createGame()">Create a Game</button>
-          </div>
+            </div>
+        </div>
+      
+          <!-- Include Chat Box -->
+          <%- include('components/chatbox') %>
     
-    
-        <!-- The chatbox -->
-        <%- include('components/chatbox') %>
-    
-        
     </body>
 </html>
