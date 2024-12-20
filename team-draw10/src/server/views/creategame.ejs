@@ -3,6 +3,46 @@
         <title>Create Game</title>
     </head>
     <body>
-        <p>Configure your Uno game settings</p>
+         <!-- Include Header -->
+        <%- include('components/header') %>
+
+        <div class="create-game-container">
+        <h1>Create a New UNO Game</h1>
+
+        <form id="create-game-form" action="/create-game" method="POST">
+            <!-- Game Name -->
+            <label for="game-name">Game Name:</label>
+            <input
+            type="text"
+            id="game-name"
+            name="gameName"
+            placeholder="Enter game name"
+            required
+            />
+
+            <label for="game-name">Password:</label>
+            <input
+            type="password"
+            id="game-password"
+            name="gamePassword"
+            placeholder="Enter Password"
+            />
+
+            <!-- Maximum Number of Players -->
+            <label for="max-players">Maximum Players:</label>
+            <select id="max-players" name="maxPlayers">
+            <option value="2">2 Players</option>
+            <option value="3">3 Players</option>
+            <option value="4" selected>4 Players</option>
+            </select>
+
+            <!-- Create Game Button -->
+            <button type="submit" class="btn">Create Game</button>
+        </form>
+        </div>
+
+        <!-- Include Chat Box -->
+        <%- include('components/chatbox') %>
+    
     </body>
 </html>

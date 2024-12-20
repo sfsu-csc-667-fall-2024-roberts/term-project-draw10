@@ -3,6 +3,24 @@
         <title>Log-In</title>
     </head>
     <body>
-        <p>Login with the correct credentials</p>
+        <!-- The header -->
+        <%- include('header') %>
+
+        <!-- Login Form -->
+        <div class="login-container">
+            <div class="login-card">
+              <h2>Login</h2>
+              <form id="login-form">
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        
+                <button type="submit" class="btn">Log In</button>
+              </form>
+              <p class="signup-link">Don't have an account? <a href="signup.ejs">Sign Up</a></p>
+            </div>
+          </div>
     </body>
 </html>

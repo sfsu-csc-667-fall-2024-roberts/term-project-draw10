@@ -3,6 +3,33 @@
         <title>Games List</title>
     </head>
     <body>
-        <p>Create or join a new Uno game</p>
+        <!-- The header -->
+        <%- include('components/header') %>
+    
+        <!-- Listing of UNO games -->
+        <div class="games-list">
+        <h2>Current Games</h2>
+            <ul id="games">
+             <!-- Populate games here -->
+                <% games.forEach(function(game) { %>
+                <li>
+                    <span>Game ID: <%= game.id %></span>
+                    <span>Players: <%= game.players %></span>
+                    <button onclick="joinGame('<%= game.id %>')">Join</button>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+    
+          <!-- Right column for the "Create a Game" button -->
+          <div class="create-game-container">
+            <button id="create-game-btn" onclick="createGame()">Create a Game</button>
+          </div>
+    
+    
+        <!-- The chatbox -->
+        <%- include('components/chatbox') %>
+    
+        
     </body>
 </html>

@@ -3,6 +3,26 @@
         <title>Sign-Up</title>
     </head>
     <body>
-        <p>Register to create a new account</p>
+        <!-- The header -->
+        <%- include('header') %>
+
+        <h2>Register to create a new account</h2>
+
+        <!-- Sign Up Form -->
+        <div class="signup-container">
+            <div class="login-card">
+              <h4>Register Now</h4>
+              <form id="login-form">
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        
+                <button type="submit" class="btn">Log In</button>
+              </form>
+              <p class="signup-link">Have an account? <a href="login.ejs">Log In</a></p>
+            </div>
+          </div>
     </body>
 </html>
