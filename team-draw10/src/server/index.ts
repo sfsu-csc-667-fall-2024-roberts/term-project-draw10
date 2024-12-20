@@ -47,7 +47,7 @@ app.use("/creategame", middleware.authentication, routes.creategame);
 app.use("/gamelobby", middleware.authentication, routes.gamelobby);
 app.use("/game", middleware.authentication, routes.game);
 app.use("/gameresult", routes.gameresult);
-app.use("/chats", middleware.authentication, routes.chat);
+app.use("/chats", middleware.authentication, routes.chats);
 
 app.use((_request, _response, next) => {
 	next(httpErrors(404));
