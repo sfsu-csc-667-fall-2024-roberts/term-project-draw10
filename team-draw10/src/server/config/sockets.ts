@@ -2,6 +2,16 @@
 import { Server } from "http";
 import type {Express, RequestHandler} from "express";
 import {Server as SocketIoServer, Socket} from "socket.io";
+import type { SessionData } from 'express-session';
+
+declare module 'http' {
+    interface IncomingMessage {
+      session: SessionData & {
+        user?: { id: string };
+        roomId?: string;
+      };
+    }
+  }
 
 let io: SocketIoServer | undefined;
 
@@ -11,7 +21,6 @@ let io: SocketIoServer | undefined;
     const{
         user:{id: userId} ={},
         roomId
-        // @ts-expect-error TODO figure out the typing for session on request
     }=request.session;
 
     socket.join(`user-${userId}`);

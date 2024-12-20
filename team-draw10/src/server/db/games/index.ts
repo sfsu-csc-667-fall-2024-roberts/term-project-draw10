@@ -17,6 +17,7 @@ import {
 } from "./sql";
 
 type GameDescription = {
+  currentPlayerIsMember: boolean;
   id: number;
   players: number;
   player_count: number;
@@ -102,6 +103,10 @@ const playCard = async (playerId: number, gameId: number, cardId: number, cardTy
     default:
       break;
   }
+  await checkWinner(gameId, playerId);
+
+ 
+  await checkForUno(gameId, playerId);
 
   await incrementTurn(gameId); // Move to the next turn
   return card;
