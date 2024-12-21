@@ -7,7 +7,7 @@ import type { SessionData } from 'express-session';
 declare module 'http' {
     interface IncomingMessage {
       session: SessionData & {
-        user?: { id: string };
+        user?: { id: Number };
         roomId?: string;
       };
     }
