@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-const staticPath = path.join(process.cwd(), "src", "public");
+const staticPath = path.join(process.cwd(), `src`, `public`);
 app.use(express.static(staticPath));
 
 configuration.configureLiveReload(app, staticPath);

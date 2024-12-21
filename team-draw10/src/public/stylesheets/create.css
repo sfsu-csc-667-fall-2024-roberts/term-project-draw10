@@ -1,0 +1,44 @@
+/* Create Game Page Styles */
+.create-game-container {
+    margin: 0 auto;
+    max-width: 500px;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .create-game-container h1 {
+    margin-bottom: 20px;
+  }
+  
+  .create-game-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .create-game-container label {
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  .create-game-container input,
+  .create-game-container select,
+  .create-game-container button {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .create-game-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .create-game-container button:hover {
+    background-color: #0056b3;
+  }
+  

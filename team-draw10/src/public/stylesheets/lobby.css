@@ -1,0 +1,46 @@
+/* Games List Page Styles */
+.games-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .games-list {
+    margin: 20px 0;
+  }
+  
+  .games-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .games-list li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .games-list button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .games-list button:hover {
+    background-color: #0056b3;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
