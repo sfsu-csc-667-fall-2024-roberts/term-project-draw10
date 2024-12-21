@@ -8,7 +8,7 @@ declare module 'http' {
     interface IncomingMessage {
       session: SessionData & {
         user?: { id: Number };
-        roomId?: string;
+        roomId?: number;
       };
     }
   }

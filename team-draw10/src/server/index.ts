@@ -24,8 +24,9 @@ app.use(express.urlencoded({ extended: false }));
 
 
 const staticPath = path.join(process.cwd(), `src`, `public`);
+const jspath = path.join(process.cwd(), `src`, `public`, `js` );
 app.use(express.static(staticPath));
-
+app.use(express.static(jspath));
 configuration.configureLiveReload(app, staticPath);
 configuration.configureSocketID(
   server,

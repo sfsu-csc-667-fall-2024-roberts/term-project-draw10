@@ -1,11 +1,20 @@
 <div class="chatbox-container">
-    <div class="chatbox-header">Chat</div>
-    <div class="chatbox-messages">
-      <!-- Chat messages will dynamically appear here -->
-    </div>
-    <div class="chatbox-input">
-      <input type="text" id="chat-message" placeholder="Type a message..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
+  <div class="chatbox-header">Chat</div>
+  <div class="chatbox-messages" id="chat-messages">
+    <!-- Chat messages will dynamically appear here -->
   </div>
-  
+  <div class="chatbox-input">
+    <form id="chat-form">
+      <input
+        type="text"
+        name="message"
+        id="chat-input"
+        placeholder="Enter your message"
+        required
+      />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/chat.js"></script>

@@ -1,5 +1,8 @@
-<html>
-    <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Games List</title>
         <link rel="stylesheet" href="stylesheets/chat.css">
         <link rel="stylesheet" href="stylesheets/header.css">
@@ -34,6 +37,11 @@
       
           <!-- Include Chat Box -->
           <%- include('components/chatbox') %>
-    
+          <script>
+            function goToCreateGame() {
+              window.location.href = "/creategame";
+            }
+          </script>
+          <script src="gameslist.js"></script>
     </body>
 </html>

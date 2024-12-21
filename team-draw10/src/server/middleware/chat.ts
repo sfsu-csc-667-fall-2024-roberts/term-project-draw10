@@ -1,4 +1,12 @@
 import { NextFunction, Request, Response, response } from "express";
+interface SessionData {
+    roomId?: number;
+    user?: { 
+        id: number; 
+        username: string;
+        email: string; }; 
+  }
+
 
 const chatMiddleware = (
     request: Request,
@@ -8,7 +16,7 @@ const chatMiddleware = (
 const gameIdMatch = request.headers.referer?.match(/\/game\/(\d+)/);
 const gameId = parseInt(gameIdMatch ? gameIdMatch[1]: "0");
 
-//@ts-expect-error TODO figure out the typing session on request
+
 request.session.roomId = gameId;
 
 if(request.params.gameId !== undefined){

@@ -1,66 +1,90 @@
-<html>
-    <head>
-        <title>Game</title>
-        <link rel="stylesheet" href="stylesheets/chat.css">
-        <link rel="stylesheet" href="stylesheets/header.css">
-        <link rel="stylesheet" href="stylesheets/game.css">
-    </head>
-    <body>
-       
-        <!-- Include Header -->
-        <%- include('components/header') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game</title>
+  <link rel="stylesheet" href="/stylesheets/chat.css">
+  <link rel="stylesheet" href="/stylesheets/header.css">
+  <link rel="stylesheet" href="/stylesheets/game.css">
+</head>
+<body>
+  <!-- Include Header -->
+  <%- include('components/header') %>
 
-        <div class="game-container">
-        <!-- Players Section -->
-        <div class="players-container">
-            <h2>Players</h2>
-            <ul id="players-list">
-            <% players.forEach(player => { %>
-                <li class="<%= player.isCurrent ? 'current-player' : '' %>">
-                <span><%= player.name %></span>
-                <span>(<%= player.cards %> cards)</span>
-                </li>
-            <% }) %>
-            </ul>
-        </div>
+  <!-- Templates -->
+  <template id="card-template">
+    <div class="card">
+      <span></span>
+    </div>
+  </template>
+  
+  <template id="player-template">
+    <div class="player">
+      <h4 class="player-info">
+        <img class="gravatar" alt="Player Avatar">
+        <span class="username"></span>
+        <span class="card-count"></span>
+      </h4>
+      <div class="player-hand">
+        <div class="hand-cards"></div>
+      </div>
+    </div>
+  </template>
 
-        <!-- Game Board Section -->
-        <div class="game-board">
-            <!-- Discard Pile -->
-            <div class="discard-pile">
-            <h3>Discard Pile</h3>
+  <!-- Main Game Container -->
+  <div class="game-container">
+    <!-- Players Section -->
+    <div class="players-container">
+      <h2>Players</h2>
+      <ul id="players-list">
+        <% players.forEach(player => { %>
+          <li class="<%= player.isCurrent ? 'current-player' : '' %>">
+            <span><%= player.name %></span>
+            <span>(<%= player.cards %> cards)</span>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <!-- Game Board Section -->
+    <div class="game-board">
+      <!-- Discard Pile -->
+      <div class="discard-pile">
+        <h3>Discard Pile</h3>
+        <img
+          src="/images/cards/<%= discardPile.topCard.image %>"
+          alt="<%= discardPile.topCard.name %>"
+          class="card"
+        />
+      </div>
+
+      <!-- Player's Hand -->
+      <div class="player-hand">
+        <h3>Your Hand</h3>
+        <div class="hand-cards">
+          <% playerHand.forEach(card => { %>
             <img
-                src="/images/cards/<%= discardPile.topCard.image %>"
-                alt="<%= discardPile.topCard.name %>"
-                class="card"
+              src="/images/cards/<%= card.image %>"
+              alt="<%= card.name %>"
+              class="card"
+              data-card-id="<%= card.id %>"
             />
-            </div>
-
-            <!-- Player's Hand -->
-            <div class="player-hand">
-            <h3>Your Hand</h3>
-            <div class="hand-cards">
-                <% playerHand.forEach(card => { %>
-                <img
-                    src="/images/cards/<%= card.image %>"
-                    alt="<%= card.name %>"
-                    class="card"
-                    data-card-id="<%= card.id %>"
-                />
-                <% }) %>
-            </div>
-            </div>
-
-            <!-- Game Actions -->
-            <div class="game-actions">
-            <button id="draw-card-btn">Draw Card</button>
-            <button id="call-uno-btn">Call UNO</button>
-            </div>
+          <% }) %>
         </div>
-        </div>
+      </div>
 
-        <!-- Include Chat -->
-        <%- include('components/chatbox') %>
+      <!-- Game Actions -->
+      <div class="game-actions">
+        <button id="draw-card-btn">Draw Card</button>
+        <button id="call-uno-btn">Call UNO</button>
+      </div>
+    </div>
+  </div>
 
-    </body>
+  <!-- Include Chat -->
+  <%- include('components/chatbox') %>
+
+  <script src="/js/game.js"></script>
+</body>
 </html>
