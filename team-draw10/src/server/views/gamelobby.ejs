@@ -1,8 +1,43 @@
-<html>
-    <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Game Lobby</title>
+        <link rel="stylesheet" href="stylesheets/chat.css">
+        <link rel="stylesheet" href="stylesheets/header.css">
+        <link rel="stylesheet" href="stylesheets/lobby.css">
     </head>
     <body>
-        <p>Start the game after players have joined the lobby</p>
+        <!-- Include Header -->
+        <%- include('components/header') %>
+        
+        <div class="games-container">
+            <h1>Active UNO Games</h1>
+            
+            <div class="games-list">
+              <% if (games.length > 0) { %>
+                <ul>
+                  <% games.forEach(function(game) { %>
+                    <li>
+                      <strong><%= game.name %></strong><br>
+                      Players: <%= game.players.length %> / <%= game.maxPlayers %><br>
+                      <button onclick="joinGame('<%= game.id %>')">Join Game</button>
+                    </li>
+                  <% }) %>
+                </ul>
+              <% } else { %>
+                <p>No active games at the moment. Be the first to create a game!</p>
+              <% } %>
+            </div>
+            
+            <button onclick="createGame()">Create New Game</button>
+        </div>
+
+        <!-- Chat Box -->
+        <%- include('components/chatbox') %>
+       
+        <script src="game-lobby.js"></script>
+        
     </body>
 </html>

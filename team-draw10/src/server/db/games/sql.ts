@@ -1,5 +1,6 @@
 export const CREATE_GAME = `
-INSERT INTO games DEFAULT VALUES RETURNING *, 1 as players
+INSERT INTO games DEFAULT VALUES 
+RETURNING id, status, turn, direction, current_seat, player_count, 1 AS players;
 `;
 
 export const ADD_PLAYER = `

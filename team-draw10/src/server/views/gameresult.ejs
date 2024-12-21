@@ -1,8 +1,47 @@
 <html>
     <head>
         <title>Results</title>
+        <link rel="stylesheet" href="stylesheets/chat.css">
+        <link rel="stylesheet" href="stylesheets/header.css">
+        <link rel="stylesheet" href="stylesheets/results.css">
     </head>
     <body>
-        <p>These are the results of the game</p>
+        <!-- Header -->
+        <%- include('header') %>
+    
+        <!-- Results Table -->
+        <div class="results-container">
+            <h1>Game Results</h1>
+            <h2>Winner: <%= winner %></h2>
+  
+        <table class="results-table">
+           <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Player</th>
+                  <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% rankings.forEach(function(player, index) { %>
+                  <tr>
+                   <td><%= index + 1 %></td>
+                    <td><%= player.name %></td>
+                    <td><%= player.points %></td>
+                  </tr>
+            <% }) %>
+             </tbody>
+        </table>
+        </div>
+
+        <div class="results-actions">
+          <button onclick="window.location.href='/gamelobby'">Back to Game List</button>
+          <button onclick="startNewGame()">Play Again</button>
+        </div>
+        
+  
+      <!-- Include the chatbox -->
+      <%- include('components/chatbox') %>
+
     </body>
 </html>

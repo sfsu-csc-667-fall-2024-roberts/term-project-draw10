@@ -5,5 +5,5 @@ export { default as gameresult } from "./gameresult";
 export { default as gameslist } from "./gameslist";
 //export { default as login } from "./login"; //remove
 export { default as root } from "./root";
-//export { default as signup } from "./signup"; //remove
 export { default as auth } from "./auth";
+export {default as chats } from "./chats";

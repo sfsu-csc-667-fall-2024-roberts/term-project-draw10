@@ -23,9 +23,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-const staticPath = path.join(process.cwd(), "src", "public");
+const staticPath = path.join(process.cwd(), `src`, `public`);
+const jspath = path.join(process.cwd(), `src`, `public`, `js` );
 app.use(express.static(staticPath));
-
+app.use(express.static(jspath));
 configuration.configureLiveReload(app, staticPath);
 configuration.configureSocketID(
   server,
@@ -47,7 +48,7 @@ app.use("/creategame", middleware.authentication, routes.creategame);
 app.use("/gamelobby", middleware.authentication, routes.gamelobby);
 app.use("/game", middleware.authentication, routes.game);
 app.use("/gameresult", routes.gameresult);
-app.use("/chats", middleware.authentication, routes.chat);
+app.use("/chats", middleware.authentication, routes.chats);
 
 app.use((_request, _response, next) => {
 	next(httpErrors(404));

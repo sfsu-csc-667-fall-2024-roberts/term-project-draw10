@@ -1,18 +1,24 @@
-<html>
-	<head>
-		<title>Hello</title>
-	</head>
-	<body>
-		<p>Hello <%= name %></p>
-		<ul>
-			<li><a href="/auth/login">Login</a></li>
-			<li><a href="/auth/register">Register</a></li>
-			<li><a href="/gameslist">List of Games</a></li>
-			<li><a href="/creategame">Create Game</a></li>
-			<li><a href="/gamelobby">Game Lobby</a></li>
-			<li><a href="/game">Running Game</a></li>
-			<li><a href="/gameresult">Game Result</a></li>
-		<ul>
-		<script src="/js/main.js"></script>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Page</title>
+</head> 
+<body>
+  <!-- Include the header component -->
+  <%- include('components/header') %>
+
+  <ul>
+    <li><a href="/auth/login">Login</a></li>
+    <li><a href="/auth/register">Register</a></li>
+    <li><a href="/gameslist">List of Games</a></li>
+    <li><a href="/creategame">Create Game</a></li>
+    <li><a href="/gamelobby">Game Lobby</a></li>
+    <li><a href="/game">Running Game</a></li>
+    <li><a href="/gameresult">Game Result</a></li>
+  </ul>
+
+  <script src="js/main.js"></script>
+</body>
 </html>
