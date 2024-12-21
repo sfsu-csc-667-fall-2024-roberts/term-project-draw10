@@ -1,20 +1,11 @@
+window.socket.on("game-created", (game) => {
+  const gamesList = document.querySelector<HTMLUListElement>("#games-list");
+  if (!gamesList) return;
 
-const createGame = async () => {
-    try {
-      const response = await fetch("/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-  
-      const data = await response.json();
-      if (data.success) {
-        alert("Game created successfully!");
-        window.location.href = `/game/${data.gameId}`;
-      } else {
-        alert(`Error: ${data.error}`);
-      }
-    } catch (error) {
-      console.error("Error creating game:", error);
-      alert("An unexpected error occurred.");
-    }
-  };
+  const gameItem = document.createElement("li");
+  gameItem.textContent = `Game ID: ${game.id}, Players: ${game.players}/${game.player_count}`;
+  const joinButton = document.createElement("button");
+  joinButton.textContent = "Join Game";
+  joinButton.onclick = () => (window.location.href = `/game/${game.id}`);
+  gameItem.appendChild(joinButton);
+  gamesList.appendChild(gameItem);})

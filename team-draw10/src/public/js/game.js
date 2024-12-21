@@ -14,104 +14,20 @@
 /*!****************************!*\
   !*** ./src/client/game.ts ***!
   \****************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function() {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst card_click_handler_1 = __webpack_require__(/*! ./games/card-click-handler */ \"./src/client/games/card-click-handler.ts\");\nconst index_1 = __webpack_require__(/*! ./games/index */ \"./src/client/games/index.ts\");\nconst gameId = window.location.pathname.split(\"/\").pop();\nwindow.socket.on(`game:${gameId}:updated`, (game) => {\n    (0, index_1.updateGame)(game);\n});\nsetTimeout(() => {\n    fetch(`/game/${gameId}/update`);\n}, 1000);\ndocument\n    .querySelector(\"#draw-pile\")\n    .addEventListener(\"click\", () => {\n    fetch(`/game/${gameId}/draw`, { method: \"POST\" });\n});\ndocument\n    .querySelector(\"#playing-table\")\n    .addEventListener(\"click\", card_click_handler_1.cardClickHandler);\n\n\n//# sourceURL=webpack://team-draw10/./src/client/game.ts?");
-
-/***/ }),
-
-/***/ "./src/client/games/card-click-handler.ts":
-/*!************************************************!*\
-  !*** ./src/client/games/card-click-handler.ts ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.cardClickHandler = void 0;\nconst cardClickHandler = (event) => {\n    const card = event.target;\n    if (card.classList.contains(\"card\") &&\n        card.classList.contains(\"source-card\")) {\n        event.preventDefault();\n        console.log(\"source card clicked\", { card });\n    }\n    else if (card.classList.contains(\"card\") &&\n        card.classList.contains(\"destination-card\")) {\n        event.preventDefault();\n    }\n};\nexports.cardClickHandler = cardClickHandler;\n\n\n//# sourceURL=webpack://team-draw10/./src/client/games/card-click-handler.ts?");
-
-/***/ }),
-
-/***/ "./src/client/games/create-player-elements.ts":
-/*!****************************************************!*\
-  !*** ./src/client/games/create-player-elements.ts ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.createPlayerElement = void 0;\nconst get_card_value_1 = __webpack_require__(/*! ./get-card-value */ \"./src/client/games/get-card-value.ts\");\nconst update_pile_1 = __webpack_require__(/*! ./update-pile */ \"./src/client/games/update-pile.ts\");\nconst playerTemplate = document.querySelector(\"#player-template\");\nconst cardTemplate = document.querySelector(\"#card-template\");\nconst createPlayerElement = ({ username, gravatar, \n// is_current,\nhand, play_pile_top, play_pile_top_id, play_pile_count, pile_1, pile_2, pile_3, pile_4, }) => {\n    const playerElement = playerTemplate.content.cloneNode(true);\n    // if (is_current) {\n    //   playerElement.firstElementChild?.classList.add(\"current-player\");\n    // }\n    // Update gravatar\n    const gravatarElement = playerElement.querySelector(\"h4 img\");\n    gravatarElement.src = `https://www.gravatar.com/avatar/${gravatar}`;\n    gravatarElement.alt = username;\n    // Update username\n    playerElement.querySelector(\"h4 span.username\").textContent = username;\n    playerElement.querySelector(\"h4 span.card-count\").textContent =\n        `${play_pile_count} cards`;\n    // Update hand\n    const handElement = playerElement.querySelector(\".hand\");\n    hand === null || hand === void 0 ? void 0 : hand.forEach((card) => {\n        const cardElement = cardTemplate.content.cloneNode(true);\n        const cardDiv = cardElement.querySelector(\"div.card\");\n        cardDiv.classList.add(`value-${card.value}`, \"source-card\");\n        cardDiv.dataset.cardId = card.id.toString();\n        cardElement.querySelector(\"span\").textContent = (0, get_card_value_1.getCardValue)(card.value);\n        handElement.appendChild(cardElement);\n    });\n    const topCard = cardTemplate.content.cloneNode(true);\n    const topCardDiv = topCard.querySelector(\"div.card\");\n    topCardDiv.classList.add(`value-${play_pile_top}`, \"source-card\");\n    topCardDiv.dataset.cardId = play_pile_top_id.toString();\n    topCard.querySelector(\"span\").textContent = (0, get_card_value_1.getCardValue)(play_pile_top);\n    playerElement\n        .querySelector(\".player-pile-0\")\n        .replaceChildren(topCard);\n    (0, update_pile_1.updatePile)(pile_1, \".player-pile-1\", playerElement);\n    (0, update_pile_1.updatePile)(pile_2, \".player-pile-2\", playerElement);\n    (0, update_pile_1.updatePile)(pile_3, \".player-pile-3\", playerElement);\n    (0, update_pile_1.updatePile)(pile_4, \".player-pile-4\", playerElement);\n    return playerElement;\n};\nexports.createPlayerElement = createPlayerElement;\n\n\n//# sourceURL=webpack://team-draw10/./src/client/games/create-player-elements.ts?");
-
-/***/ }),
-
-/***/ "./src/client/games/get-card-value.ts":
-/*!********************************************!*\
-  !*** ./src/client/games/get-card-value.ts ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.getCardValue = void 0;\nconst getCardValue = (value) => {\n    if (value === 0) {\n        return \"error\";\n    }\n    else {\n        return value.toString();\n    }\n};\nexports.getCardValue = getCardValue;\n\n\n//# sourceURL=webpack://team-draw10/./src/client/games/get-card-value.ts?");
-
-/***/ }),
-
-/***/ "./src/client/games/index.ts":
-/*!***********************************!*\
-  !*** ./src/client/games/index.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.updateGame = void 0;\nvar update_game_1 = __webpack_require__(/*! ./update-game */ \"./src/client/games/update-game.ts\");\nObject.defineProperty(exports, \"updateGame\", ({ enumerable: true, get: function () { return update_game_1.updateGame; } }));\n\n\n//# sourceURL=webpack://team-draw10/./src/client/games/index.ts?");
-
-/***/ }),
-
-/***/ "./src/client/games/update-game.ts":
-/*!*****************************************!*\
-  !*** ./src/client/games/update-game.ts ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.updateGame = void 0;\nconst create_player_elements_1 = __webpack_require__(/*! ./create-player-elements */ \"./src/client/games/create-player-elements.ts\");\nconst playerArea = document.querySelector(\"#player-area\");\nconst opponentArea = document.querySelector(\"#opponent-area\");\nconst updateGame = (game) => {\n    console.log(game);\n    playerArea.replaceChildren((0, create_player_elements_1.createPlayerElement)(game.player));\n    opponentArea.replaceChildren(...game.players.map((player) => {\n        return (0, create_player_elements_1.createPlayerElement)(player);\n    }));\n};\nexports.updateGame = updateGame;\n\n\n//# sourceURL=webpack://team-draw10/./src/client/games/update-game.ts?");
-
-/***/ }),
-
-/***/ "./src/client/games/update-pile.ts":
-/*!*****************************************!*\
-  !*** ./src/client/games/update-pile.ts ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.updatePile = void 0;\nconst get_card_value_1 = __webpack_require__(/*! ./get-card-value */ \"./src/client/games/get-card-value.ts\");\nconst cardTemplate = document.querySelector(\"#card-template\");\nconst BLANK_CARD = cardTemplate.content.cloneNode(true);\nBLANK_CARD.querySelector(\"div.card\").classList.add(\"blank\", \"destination-card\");\nconst updatePile = (pile, selector, element) => {\n    const pileElement = element.querySelector(selector);\n    if (pile.length === 0) {\n        pileElement.replaceChildren(BLANK_CARD.cloneNode(true));\n    }\n    else {\n        pileElement.replaceChildren(...pile.map((value) => {\n            const cardElement = cardTemplate.content.cloneNode(true);\n            cardElement\n                .querySelector(\"div.card\")\n                .classList.add(`value-${value}`, \"destination-card\");\n            cardElement.querySelector(\"span\").textContent = (0, get_card_value_1.getCardValue)(value);\n            return cardElement;\n        }));\n    }\n};\nexports.updatePile = updatePile;\n\n\n//# sourceURL=webpack://team-draw10/./src/client/games/update-pile.ts?");
+eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\nvar _a;\nconst createGame = () => __awaiter(void 0, void 0, void 0, function* () {\n    const gameNameInput = document.querySelector(\"#game-name\");\n    const gamePasswordInput = document.querySelector(\"#game-password\");\n    const maxPlayersInput = document.querySelector(\"#max-players\");\n    if (!gameNameInput || !maxPlayersInput) {\n        console.error(\"Game form elements not found.\");\n        return;\n    }\n    const name = gameNameInput.value.trim();\n    const password = gamePasswordInput === null || gamePasswordInput === void 0 ? void 0 : gamePasswordInput.value.trim();\n    const maxPlayers = parseInt(maxPlayersInput.value, 10);\n    if (!name || !maxPlayers) {\n        alert(\"Game name and maximum players are required.\");\n        return;\n    }\n    try {\n        const response = yield fetch(\"/create\", {\n            method: \"POST\",\n            headers: { \"Content-Type\": \"application/json\" },\n            body: JSON.stringify({ name, password, maxPlayers }),\n        });\n        const data = yield response.json();\n        if (response.ok && data.success) {\n            alert(\"Game created successfully!\");\n            window.location.href = `/game/${data.gameId}`;\n        }\n        else {\n            console.error(\"Error creating game:\", data.error);\n            alert(`Error: ${data.error}`);\n        }\n    }\n    catch (error) {\n        console.error(\"Error creating game:\", error);\n        alert(\"An unexpected error occurred while creating the game.\");\n    }\n});\nconst joinGame = (gameId) => __awaiter(void 0, void 0, void 0, function* () {\n    try {\n        const response = yield fetch(`/join/${gameId}`, {\n            method: \"POST\",\n            headers: { \"Content-Type\": \"application/json\" },\n        });\n        if (response.ok) {\n            alert(\"Successfully joined the game!\");\n            window.location.href = `/game/${gameId}`;\n        }\n        else {\n            const data = yield response.json();\n            console.error(\"Error joining game:\", data.error);\n            alert(`Error: ${data.error}`);\n        }\n    }\n    catch (error) {\n        console.error(\"Error joining game:\", error);\n        alert(\"An unexpected error occurred while joining the game.\");\n    }\n});\nwindow.socket.on(\"game-created\", (game) => {\n    const gamesList = document.querySelector(\"#games-list\");\n    if (!gamesList)\n        return;\n    const gameItem = document.createElement(\"li\");\n    gameItem.textContent = `Game ID: ${game.id}, Players: ${game.players}/${game.player_count}`;\n    const joinButton = document.createElement(\"button\");\n    joinButton.textContent = \"Join Game\";\n    joinButton.onclick = () => joinGame(game.id);\n    gameItem.appendChild(joinButton);\n    gamesList.appendChild(gameItem);\n});\nwindow.socket.on(\"player-joined\", ({ playerId, gameId }) => {\n    console.log(`Player ${playerId} joined game ${gameId}.`);\n});\nwindow.socket.on(\"player-draw\", ({ playerId, gameId }) => {\n    console.log(`Player ${playerId} drew a card in game ${gameId}.`);\n});\n(_a = document.querySelector(\"#create-game-form\")) === null || _a === void 0 ? void 0 : _a.addEventListener(\"submit\", (event) => {\n    event.preventDefault();\n    createGame();\n});\n\n\n//# sourceURL=webpack://team-draw10/./src/client/game.ts?");
 
 /***/ })
 
 /******/ 	});
 /************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/client/game.ts");
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./src/client/game.ts"]();
 /******/ 	
 /******/ })()
 ;

@@ -16,7 +16,7 @@ const config: webpack.Configuration = {
     	game: path.join(process.cwd(), "src", "client", "game.ts"),
     	gamelobby: path.join(process.cwd(), "src", "client", "gamelobby.ts"),
 		gameslist: path.join(process.cwd(),"src","client","gameslist.ts"),
-		
+		creategame: path.join(process.cwd(),"src","client","creategame.ts")
 
 	},	
 	mode,

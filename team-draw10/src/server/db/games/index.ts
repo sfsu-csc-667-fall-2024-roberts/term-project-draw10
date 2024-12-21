@@ -22,19 +22,31 @@ type GameDescription = {
   players: number;
   player_count: number;
 };
+import { Server as SocketIOServer } from "socket.io";
 
-const create = async (playerId: number): Promise<GameDescription> => {
-  const { id } = await db.one<GameDescription>(CREATE_GAME);
-  await db.any(INSERT_INITIAL_CARDS, id);
-  return await join(id, playerId);
-};
+const create = async (playerId: number, io: SocketIOServer): Promise<GameDescription> => {
+  const { id } = await db.one<GameDescription>(CREATE_GAME); // Add a new game
+  await db.any(INSERT_INITIAL_CARDS, id); // Insert initial cards into the game
+  const gameDescription = await join(id, playerId); // Add the creator as the first player
 
-const join = async (gameId: number, playerId: number) => {
+  // Notify all clients about the new game
+  io.emit("game-created", {
+    id: gameDescription.id,
+    players: gameDescription.players,
+    player_count: gameDescription.player_count,
+    currentPlayerIsMember: gameDescription.currentPlayerIsMember,
+  });
+
+  return gameDescription;
+}
+const join = async (gameId: number, playerId: number): Promise<GameDescription> => {
   const gameDescription = await db.one<GameDescription>(ADD_PLAYER, [gameId, playerId]);
-  
+
   // Deal 7 cards to the player for their starting hand
   await db.any(DEAL_CARDS, [playerId, 0, gameId, 7]);
-  
+  // Pile -1 is the player's play pile
+  await db.any(DEAL_CARDS, [playerId, -1, gameId, 20]);
+
   return gameDescription;
 };
 

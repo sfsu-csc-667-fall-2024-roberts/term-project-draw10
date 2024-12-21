@@ -30,4 +30,36 @@ eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _argument
 /******/ 	__webpack_modules__["./src/client/creategame.ts"]();
 /******/ 	
 /******/ })()
+;/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/client/creategame.ts":
+/*!**********************************!*\
+  !*** ./src/client/creategame.ts ***!
+  \**********************************/
+/***/ (() => {
+
+eval("\nwindow.socket.on(\"game-created\", (game) => {\n    const gamesList = document.querySelector(\"#games-list\");\n    if (!gamesList)\n        return;\n    const gameItem = document.createElement(\"li\");\n    gameItem.textContent = `Game ID: ${game.id}, Players: ${game.players}/${game.player_count}`;\n    const joinButton = document.createElement(\"button\");\n    joinButton.textContent = \"Join Game\";\n    joinButton.onclick = () => (window.location.href = `/game/${game.id}`);\n    gameItem.appendChild(joinButton);\n    gamesList.appendChild(gameItem);\n});\n\n\n//# sourceURL=webpack://team-draw10/./src/client/creategame.ts?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./src/client/creategame.ts"]();
+/******/ 	
+/******/ })()
 ;

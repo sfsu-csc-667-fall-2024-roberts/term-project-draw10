@@ -49,6 +49,7 @@
 
 .hand-cards {
   display: flex;
+  height: auto;
   gap: 10px;
 }
 
